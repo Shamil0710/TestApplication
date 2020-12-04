@@ -5,9 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class DtoUser {
+public class OutputDtoUser {
 
+    private Integer id;
     private String name;
-    private String secondName;
+    private String lastName;
     private Integer age;
 }
