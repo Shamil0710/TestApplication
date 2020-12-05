@@ -16,6 +16,7 @@ public class UserMapper implements DtoMapper, com.example.application.mapper.int
 
 
     public User toUser(InputDtoUser inputDtoUser) {
-        return new User(inputDtoUser.getId(), inputDtoUser.getName(), inputDtoUser.getLastName(), inputDtoUser.getAge());
+//        return new User(inputDtoUser.getName(), inputDtoUser.getLastName(), inputDtoUser.getAge());
+        return new User(inputDtoUser.getName(), inputDtoUser.getLastName(), inputDtoUser.getAge());
     }
 }

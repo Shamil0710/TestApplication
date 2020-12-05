@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class InputDtoUser {
 
-    private Integer id;
     private String name;
     private String lastName;
     private Integer age;
