@@ -8,6 +8,7 @@ import com.example.application.services.interfaces.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mapping.MappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,16 +34,21 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
     //TODO обработать на месте в кетч возрачать ошибку 500
     @GetMapping(value = "/users_string")
-    public ResponseEntity<String> readAllString() throws JsonProcessingException {
+    public ResponseEntity<String> readAllString() {
         final List<OutputDtoUser> all = userService.getAll();
         ObjectMapper objectMapper = new ObjectMapper();
 
-        return all != null && !all.isEmpty()
-                ? new ResponseEntity<>(objectMapper.writeValueAsString(all), HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            return all != null && !all.isEmpty()
+                    ? new ResponseEntity<>(objectMapper.writeValueAsString(all), HttpStatus.OK)
+                    : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     //TODO написать валидацию
@@ -51,6 +57,4 @@ public class UserController {
         final User user = userService.addUser(inputDtoUser);
         return ResponseEntity.ok(user.getId());
     }
-
-
 }

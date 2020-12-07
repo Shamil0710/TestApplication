@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface UserService {
 
     User addUser(InputDtoUser inputDtoUser) throws JsonProcessingException;
-    void deleteById(Integer id);
-    Optional<User> getById(InputDtoUser inputDtoUser);
+    void deleteById(Integer id) throws JsonProcessingException;
+    Optional<User> getById(InputDtoUser inputDtoUser) throws JsonProcessingException;
     List<OutputDtoUser> getByName(InputDtoUser inputDtoUser);
     List<OutputDtoUser> getByLastname(InputDtoUser inputDtoUser);
     List<OutputDtoUser> getByAge(InputDtoUser inputDtoUser);
